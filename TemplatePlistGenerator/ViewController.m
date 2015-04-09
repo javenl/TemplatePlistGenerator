@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "ProjectTemlatePlistGenerator.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *resultLabel;
 
 @end
 
@@ -16,12 +19,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    //使用绝对路径才能生成到PC上
+    NSString *path = @"Users/liu/Desktop/MyTemplate/TemplateInfo.plist";
+    BOOL flag = [ProjectTemlatePlistGenerator generatorToPath:path];
+    if (flag) {
+        self.resultLabel.text = [NSString stringWithFormat:@"Plist Generate Success To Path\n\n \"%@\"", path];
+    } else {
+        self.resultLabel.text = @"Plist Generate Failure";
+    }
 }
 
 @end
